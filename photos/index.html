@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Photos</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+        }
+
+        header {
+            background-color: #333;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .photo-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 10px;
+            padding: 20px;
+        }
+        .photo-card {
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            overflow: hidden;
+            cursor: pointer;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .photo-card img {
+            width: 100%;
+            height: auto;
+        }
+        .description-modal {
+            display: none;
+            position: fixed;
+            z-index: 999;
+            padding: 20px;
+            background-color: white;
+            border: 1px solid #ccc;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            max-width: 80%;
+            max-height: 80%;
+            overflow-y: auto;
+        }
+        .description-modal span {
+            float: right;
+            cursor: pointer;
+            font-size: 24px;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Photos Gallery</h1>
+</header>
+
+<div class="photo-grid" id="photoGrid">
+    <!-- Photo cards will be inserted here -->
+</div>
+
+<!-- Description Modal -->
+<div class="description-modal" id="descriptionModal">
+    <span onclick="document.getElementById('descriptionModal').style.display='none'">&times;</span>
+    <p id="modalDescription"></p>
+</div>
+
+<script>
+    const photoGrid = document.getElementById('photoGrid');
+    const modalDescription = document.getElementById('modalDescription');
+    const descriptionModal = document.getElementById('descriptionModal');
+
+    // Sample photos data (you can replace this with your actual data)
+    const photosData = [
+        {
+            imageUrl: 'https://via.placeholder.com/200x150',
+            description: 'Photo 1 Description'
+        },
+        {
+            imageUrl: 'https://via.placeholder.com/200x150',
+            description: 'Photo 2 Description'
+        },
+        {
+            imageUrl: 'https://via.placeholder.com/200x150',
+            description: 'Photo 3 Description'
+        }
+    ];
+
+    // Generate photo cards dynamically
+    photosData.forEach(photo => {
+        const card = document.createElement('div');
+        card.className = 'photo-card';
+        
+        const img = document.createElement('img');
+        img.src = photo.imageUrl;
+        
+        card.appendChild(img);
+        
+        // Show description on click
+        card.addEventListener('click', () => {
+            modalDescription.textContent = photo.description;
+            descriptionModal.style.display = 'block';
+        });
+
+        photoGrid.appendChild(card);
+    });
+</script>
+
+</body>
+</html>
